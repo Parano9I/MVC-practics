@@ -1,0 +1,18 @@
+{
+    "name": "anton/mvc-practics",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Anton\\MvcPractics\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Parano9I",
+            "email": "medoc1948@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
