@@ -55,16 +55,16 @@ Route::add([
     'isAuth' => 0
 ]);
 
-Route::setMiddleware('isAuth', function ($isAuth) {
+Route::setMiddleware(function ($isAuth) {
     if (!User::isAuth() && !empty($_COOKIE['userId'])) {
         $_SESSION['userId'] = $_COOKIE['userId'];
     }
 });
 
-Route::setMiddleware('isAuth', function ($isAuth) {
+Route::setMiddleware(function ($isAuth) {
     if (!User::isAuth() && $isAuth) {
         header('Location: /user/login');
     }
-});
+}, 'isAuth');
 
 Route::run();

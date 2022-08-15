@@ -16,7 +16,7 @@ class Route
         array_push(self::$routes, $route);
     }
 
-    public static function setMiddleware(string $conditionalParam = null, callable $callback): void
+    public static function setMiddleware(callable $callback, string $conditionalParam = null): void
     {
         array_push(self::$middlewares, [
             'conditionalParam' => $conditionalParam,
