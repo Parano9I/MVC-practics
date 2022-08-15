@@ -4,7 +4,10 @@
   "autoload": {
     "psr-4": {
       "Shop\\Routes\\": "Routes/",
-      "Shop\\Controllers\\": "Controllers/"
+      "Shop\\Controllers\\": "Controllers/",
+      "Shop\\Views\\": "Views/",
+      "Shop\\Models\\": "Models/",
+      "Shop\\Helpers\\": "Helpers/"
     }
   },
   "authors": [
