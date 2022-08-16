@@ -5,6 +5,7 @@ namespace Shop\Controllers;
 use Shop\Views\View;
 use Shop\Models\User;
 use Shop\Models\Cart;
+use Shop\Models\CartProduct;
 
 class CartController
 {
@@ -15,7 +16,7 @@ class CartController
 
         View::render('cart', [
             'pageTitle' => 'Cart',
-            'cartItems' => Cart::getAllByUserId($userId)
+            'cartItems' => CartProduct::getAllByUserId($userId)
         ]);
     }
 
