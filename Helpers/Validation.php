@@ -77,4 +77,9 @@ class Validation
         // } else array_push($msgArr[$fieldName], $msg);
         $msgArr[$fieldName] = $msg;
     }
+
+    public static function isEqualFields(string $firstValue, string $secondValue): bool
+    {
+        return $firstValue === $secondValue;
+    }
 }

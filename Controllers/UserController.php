@@ -2,6 +2,7 @@
 
 namespace Shop\Controllers;
 
+use Dotenv\Validator;
 use Shop\Views\View;
 use Shop\Models\User;
 use Shop\Helpers\Validation;
@@ -36,7 +37,7 @@ class UserController
         $notEmpty = ['login', 'email', 'password', 'confirm_password'];
 
         if (!empty($_POST)) {
-            if ($_POST['password'] !== $_POST['confirm_password']) {
+            if (Validation::isEqualFields($_POST['password'], $_POST['confirm_password'])) {
                 $errorsMsg['password'] = 'Password was not confirmed';
             }
 

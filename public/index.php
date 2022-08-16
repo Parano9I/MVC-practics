@@ -55,7 +55,29 @@ Route::add([
     'isAuth' => 0
 ]);
 
-Route::setMiddleware(function ($isAuth) {
+Route::add([
+    'url' => 'cart',
+    'controller' => 'Cart',
+    'action' => 'index',
+    'isAuth' => 1
+]);
+
+Route::add([
+    'url' => 'cart/add-product',
+    'controller' => 'Cart',
+    'action' => 'addProduct',
+    'isAuth' => 1
+]);
+
+Route::add([
+    'url' => 'cart/remove-product',
+    'controller' => 'Cart',
+    'action' => 'removeProduct',
+    'isAuth' => 1
+]);
+
+
+Route::setMiddleware(function () {
     if (!User::isAuth() && !empty($_COOKIE['userId'])) {
         $_SESSION['userId'] = $_COOKIE['userId'];
     }

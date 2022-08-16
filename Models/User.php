@@ -40,6 +40,7 @@ class User
     {
         $stmt = $this->db->prepare('SELECT id FROM users WHERE `' . key($field) . '` = :' . key($field));
         $stmt->execute($field);
+
         if (!empty($stmt->fetchColumn())) {
             throw new Exception(json_encode(['error' => ucfirst(key($field)) . ' is already used']));
         }
@@ -75,16 +76,20 @@ class User
             $stmt->execute(["login" => $this->login]);
             $user = $stmt->fetch();
             $isVerifyPass = false;
+
             if (!empty($user)) {
                 $this->id = $user['id'];
                 $password = $user['password'];
                 $isVerifyPass = $this->verifyPass($this->password, $password);
             }
+
             if (empty($user) || !$isVerifyPass) {
                 throw new Exception(json_encode(['error' => 'Wrong login or password']));
             }
         }
+
         $_SESSION['userId'] = $this->id;
+
         if ($isRemember) {
             setcookie("userId", $this->id, time() + 3600);
         }

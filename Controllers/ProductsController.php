@@ -3,6 +3,8 @@
 namespace Shop\Controllers;
 
 use Shop\Views\View;
+use Shop\Models\Product;
+use Shop\Models\Cart;
 use Shop\Models\User;
 
 class ProductsController
@@ -10,6 +12,11 @@ class ProductsController
 
     public function index()
     {
-        echo 'Products Page';
+        View::render('products', [
+            'pageTitle' => 'Products',
+            'products' => Product::getAll(),
+            'isAddedProduct' => fn ($productId, $userId) => Cart::isAddedProduct($productId, $userId),
+            'userId' => User::getId()
+        ]);
     }
 }
