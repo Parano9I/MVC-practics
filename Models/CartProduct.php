@@ -4,35 +4,51 @@ namespace Shop\Models;
 
 use DateTime;
 
-class CartProduct
+class CartProduct extends Product
 {
-    public string $userId;
-    public string $productId;
-    public int $amount;
-    public DateTime $createdAt;
-    public Product $product;
     public float $totalPrice;
-    private static $tableName = 'carts';
+    public int $quantityBuyed;
+    public DateTime $createdAt;
+    private static $cartTableName = 'carts';
+    private static $productTableName = 'products';
+
 
     public function __construct(
-        string $userId,
-        string $productId,
+        string $id,
+        string $title,
+        float $price,
         int $amount,
-        string $createdAt,
-        Product $product
+        int $quantityBuyed,
+        Category $category,
+        string $image,
+        string $description,
+        string $createdAt
+
     ) {
-        $this->userId = $userId;
-        $this->productId = $productId;
-        $this->amount = $amount;
+        parent::__construct($id, $title, $price, $amount, $category, $image, $description);
+        $this->quantityBuyed = $quantityBuyed;
+        $this->totalPrice = $quantityBuyed * $price;
         $this->createdAt = new DateTime($createdAt);
-        $this->product = $product;
-        $this->totalPrice = $product->price * $amount;
     }
 
     public static function getAllByUserId(string $userId): array | bool
     {
         $stmt = Db::getInstance()->getConnection()->prepare(
-            "SELECT * FROM " . self::$tableName . " WHERE user_id =:id"
+            "
+            SELECT
+                p.id,
+                p.amount,
+                p.title,
+                p.price,
+                p.category_id,
+                p.image,
+                p.description,
+                c.amount as quantityBuyed,
+                c.created_at
+            FROM " . self::$cartTableName . " c 
+	        INNER JOIN " . self::$productTableName . " p ON c.product_id = p.id 
+	        WHERE c.user_id =:id
+            "
         );
         $stmt->execute(['id' => $userId]);
         $cartItems = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -42,13 +58,15 @@ class CartProduct
 
         foreach ($cartItems as $cartItem) {
             $result[] = new CartProduct(
-                $cartItem['user_id'],
-                $cartItem['product_id'],
+                $cartItem['id'],
+                $cartItem['title'],
+                $cartItem['price'],
                 $cartItem['amount'],
+                $cartItem['quantityBuyed'],
+                Category::getById($cartItem['category_id']),
+                $cartItem['image'],
+                $cartItem['description'],
                 $cartItem['created_at'],
-                Product::getById(
-                    $cartItem['product_id']
-                )
             );
         }
 

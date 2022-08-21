@@ -7,7 +7,7 @@ use Shop\Models\Product;
 use Shop\Models\Cart;
 use Shop\Models\User;
 
-class ProductsController
+class IndexController
 {
 
     public function index()

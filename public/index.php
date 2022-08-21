@@ -15,7 +15,7 @@ session_start();
 
 Route::add([
     'url' => '/',
-    'controller' => 'Products',
+    'controller' => 'Index',
     'action' => 'index',
     'isAuth' => 1
 ]);
