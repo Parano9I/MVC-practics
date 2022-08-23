@@ -105,4 +105,14 @@ class User
     {
         return $_SESSION['userId'];
     }
+
+    public static function checkEmailExistence(string $email)
+    {
+        $stmt = Db::getInstance()->getConnection()->prepare('SELECT id FROM users WHERE email = :email');
+        $stmt->execute(['email' => $email]);
+
+        if (!empty($stmt->fetchColumn())) {
+            throw new Exception(json_encode(['error' => $email . ' is already used']));
+        }
+    }
 }

@@ -21,6 +21,13 @@ Route::add([
 ]);
 
 Route::add([
+    'url' => 'products/search',
+    'controller' => 'Index',
+    'action' => 'search',
+    'isAuth' => 1
+]);
+
+Route::add([
     'url' => 'user/register',
     'controller' => 'User',
     'action' => 'register',
@@ -56,6 +63,13 @@ Route::add([
 ]);
 
 Route::add([
+    'url' => 'user/check-email',
+    'controller' => 'User',
+    'action' => 'checkEmail',
+    'isAuth' => 0
+]);
+
+Route::add([
     'url' => 'cart',
     'controller' => 'Cart',
     'action' => 'index',
@@ -75,7 +89,6 @@ Route::add([
     'action' => 'removeProduct',
     'isAuth' => 1
 ]);
-
 
 Route::setMiddleware(function () {
     if (!User::isAuth() && !empty($_COOKIE['userId'])) {

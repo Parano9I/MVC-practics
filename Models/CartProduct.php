@@ -31,7 +31,7 @@ class CartProduct extends Product
         $this->createdAt = new DateTime($createdAt);
     }
 
-    public static function getAllByUserId(string $userId): array | bool
+    public static function getAllByUserId(string $userId): array | null
     {
         $stmt = Db::getInstance()->getConnection()->prepare(
             "
@@ -54,7 +54,7 @@ class CartProduct extends Product
         $cartItems = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $result = [];
 
-        if (empty($cartItems)) return false;
+        if (empty($cartItems)) return null;
 
         foreach ($cartItems as $cartItem) {
             $result[] = new CartProduct(

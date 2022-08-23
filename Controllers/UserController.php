@@ -3,6 +3,7 @@
 namespace Shop\Controllers;
 
 use Dotenv\Validator;
+use Exception;
 use Shop\Views\View;
 use Shop\Models\User;
 use Shop\Helpers\Validation;
@@ -108,6 +109,23 @@ class UserController
                     'pageTitle' => 'Login'
                 ]);
             }
+        }
+    }
+
+    public function checkEmail()
+    {
+        $requestBody = json_decode(file_get_contents('php://input'), true);
+        $email = $requestBody['email'];
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            User::checkEmailExistence($email);
+            http_response_code(200);
+        } catch (Exception $err) {
+            http_response_code(403);
+            $res = $err->getMessage();
+            echo $res;
         }
     }
 }

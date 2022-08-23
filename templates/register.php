@@ -15,7 +15,7 @@
             <?php if (!empty($errorsMsg['login'])) : ?>
             <div class="error-msg"><?php echo $errorsMsg['login'] ?></div>
             <?php endif; ?>
-            <div class="input">
+            <div class="input" id="email-field">
                 <input name="email" type="text" class="input-field"
                     value="<?php echo !empty($_POST['email']) ? $_POST['email'] : '' ?>" required />
                 <label class="input-label">Email</label>
@@ -45,5 +45,6 @@
         </p>
     </div>
 </body>
+<script src="/js/checkEmail.js"></script>
 
 </html>

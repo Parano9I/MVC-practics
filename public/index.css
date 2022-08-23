@@ -149,7 +149,7 @@ body {
 .product__price {
   font-weight: 800;
 }
-.product__btn {
+.button {
   cursor: pointer;
   border-radius: 5px;
   background-color: #6658d3;
@@ -158,11 +158,26 @@ body {
   padding: 7px;
   min-width: 40%;
 }
-.product__btn:disabled {
+.button:disabled {
   background-color: #3d385f;
 }
 .product__amount {
   max-width: 40px;
   border: none;
   border-bottom: 2px solid #6658d3;
+}
+
+.search {
+  display: flex;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+.search__btn {
+  min-width: 15%;
+  min-height: 100%;
+}
+.search__input {
+  min-width: 85%;
+  min-height: 100%;
+  font-size: 18px;
 }
